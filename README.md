@@ -1,8 +1,44 @@
-# Galaxium Travels — Interplanetary Booking System
+# Galaxium Travels — Interplanetary Booking System - WICKED LABS wil use this for the IBM BOB Hackathon August 29 2026
 
 A demo multi-service application for booking interplanetary space travel. Its purpose is to **showcase challenges agents face in a real enterprise-style codebase** — three polyglot services, cross-service workflows, a dual REST + MCP backend, and intentional architectural constraints that make it interesting to work with.
 
-## 🌟 Features
+## 🌟 Hackathon Instructions
+
+Welcome to the IBM Bob Flaky Failure Investigation Coach Hackathon!
+
+### TODOs
+
+- **Add bad test cases:** We need negative and edge test scenarios that intentionally fail or exhibit flaky behavior.
+- **Create a skills file for BOB:** Scaffold and populate a `.cursor/skills/` or similar to capture BOB's CI/test triage abilities.
+- **Add new cases:** Expand the test suite to better simulate real development/test challenges and edge conditions.
+
+---
+
+## 🧑‍🚀 Problem Statement
+
+When a test fails, developers often waste a lot of time figuring out if it's a real bug or just a flaky/random failure. The usual process is to manually check CI logs, re-run the test a couple of times, and then guess. The time lost here is real—studies show flaky tests cost at least 2.5% of developer time, adding up to $200K–$400K per year for mid-sized teams.
+
+### What already exists
+
+- **BrowserStack, TestingBot, mabl, etc.:** Offer AI tools to diagnose test failures, classifying them as bugs, flakiness, or environment issues.
+- **JetBrains, Trunk, Flaky X-Ray:** Modern IDEs and extensions highlight flaky-test risks right inside the editor.
+
+**The gap:** All of these are focused on UI/automation/browser/mobile tests (Selenium, Playwright, Cypress, etc.). No tools currently serve *backend* or *unit* test workflows inside an actual coding agent’s IDE. That’s the unmet need.
+
+---
+
+## 💡 What We’ll Build
+
+A Bob agent prototype that helps with failed test diagnosis:
+
+- **Looks up test history:** Checks if a failing test has failed randomly before.
+- **Reads failure logs and test code:** Parses error logs and examines the code context.
+- **Automatic classification:** Decides "likely flaky" vs. "likely a real bug," with a short rationale.
+- **Guided troubleshooting:** Walks the dev through next steps (rerun, fix, quarantine) inside the IDE.
+
+---
+
+### Existing Galaxium Features (for reference)
 
 - 🚀 **Book flights across the solar system** — search routes between Earth, Mars, the Moon, Venus, Jupiter, Europa, and Pluto
 - 💺 **Three seat classes** — Economy, Business, and Galaxium, each with independent seat counters and their own pricing multipliers
