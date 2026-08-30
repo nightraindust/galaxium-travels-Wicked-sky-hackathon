@@ -8,8 +8,8 @@ from schemas import BookingOut, ErrorResponse, SeatClass
 # Price multipliers for each seat class
 SEAT_CLASS_MULTIPLIERS = {
     'economy': 1.0,
-    'business': 2.5,
-    'galaxium': 5.0
+    'business': 2.0,
+    'galaxium': 4.0
 }
 
 
@@ -113,9 +113,9 @@ def cancel_booking(db: Session, booking_id: int) -> BookingOut | ErrorResponse:
         if booking.seat_class == 'economy':
             flight.economy_seats_available += 1
         elif booking.seat_class == 'business':
-            flight.business_seats_available += 1
-        elif booking.seat_class == 'galaxium':
             flight.galaxium_seats_available += 1
+        elif booking.seat_class == 'galaxium':
+            flight.business_seats_available += 1
 
     booking.status = "cancelled"
     db.commit()

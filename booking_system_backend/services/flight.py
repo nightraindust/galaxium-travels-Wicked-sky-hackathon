@@ -19,8 +19,8 @@ def _flight_to_out(f: Flight) -> FlightOut:
         business_seats_available=f.business_seats_available,
         galaxium_seats_available=f.galaxium_seats_available,
         economy_price=f.base_price,
-        business_price=int(f.base_price * 2.5),
-        galaxium_price=f.base_price * 5,
+        business_price=int(f.base_price * 2.0),
+        galaxium_price=f.base_price * 4,
     )
 
 
@@ -169,7 +169,7 @@ def list_flights(
             Flight.business_seats_available +
             Flight.galaxium_seats_available
         )
-        query = query.filter(total_seats >= min_seats_available)
+        query = query.filter(total_seats > min_seats_available)
     
     # Phase 3: Route category filter
     if route_category and route_category in ROUTE_CATEGORIES:
@@ -220,8 +220,7 @@ def list_flights(
             result.sort(
                 key=lambda x: (
                     x[2].economy_seats_available +
-                    x[2].business_seats_available +
-                    x[2].galaxium_seats_available
+                    x[2].business_seats_available
                 ),
                 reverse=reverse
             )

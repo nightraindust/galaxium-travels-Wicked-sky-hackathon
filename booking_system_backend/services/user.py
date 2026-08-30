@@ -8,7 +8,7 @@ from schemas import ErrorResponse, UserOut
 
 def is_valid_email(email: str) -> bool:
     """Validate email address format."""
-    email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    email_pattern = r'^[a-zA-Z0-9._%+-]+@.+$'
     return re.match(email_pattern, email) is not None
 
 

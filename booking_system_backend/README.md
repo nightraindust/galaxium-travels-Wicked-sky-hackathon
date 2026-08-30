@@ -135,6 +135,22 @@ pytest --cov=services --cov=server
   - Error responses
   - Integration with service layer
 
+### Known Mutations (Test Coverage Gaps)
+
+⚠️ This branch (`create-bad-mutations-but-tests-pass-on-booking-system-backend`) intentionally
+contains injected bugs in `services/` that the current `test_rest.py` / `test_services.py`
+suites do **not** catch — all 72 tests still pass with these mutations in place. They exist to
+demonstrate coverage gaps and should be reverted before merging to `main`.
+
+| # | File | Mutation | Why the tests miss it |
+|---|------|----------|------------------------|
+| 1 | `services/user.py` | `is_valid_email` regex gutted from `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$` to `^[a-zA-Z0-9._%+-]+@.+$` | No test ever exercises `INVALID_EMAIL` — every fixture uses a well-formed address. |
+| 2 | `services/booking.py` | `SEAT_CLASS_MULTIPLIERS`: business `2.5→2.0`, galaxium `5.0→4.0` | `price_paid` is never asserted in any booking test, and no test books business/galaxium class. |
+| 3 | `services/booking.py` | `cancel_booking` seat restoration swapped: cancelling a business booking now credits `galaxium_seats_available` (and vice versa) | Only the economy cancellation path is tested. |
+| 4 | `services/flight.py` | `_flight_to_out`: `business_price`/`galaxium_price` computed with the wrong multipliers (2.0×/4× instead of 2.5×/5×) | No test reads `business_price`, `galaxium_price`, or `economy_price` — only `base_price` is ever asserted. |
+| 5 | `services/flight.py` | `min_seats_available` filter: `>=` changed to `>` | The only test exercising this filter uses totals (2 and 10) that don't land on the threshold boundary (5). |
+| 6 | `services/flight.py` | `seats_available` sort key drops `galaxium_seats_available` from the sum | No test sorts by `sort_by=seats_available`. |
+
 ## Project Structure
 
 ```
